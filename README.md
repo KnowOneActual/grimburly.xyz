@@ -1,4 +1,7 @@
-# grimburly.xyz
+<p align="center">
+<img src="assets/icon/grimburly-color-bgr.png" alt="GrimBurly Logo png" width="150">
+
+  # grimburly.xyz
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ffd58fd4-be29-42be-96f2-d0b376f9bf59/deploy-status)](https://app.netlify.com/projects/grimburly/deploys)
 
 Welcome to the repository for grimburly.xyz, a retro-futuristic, interactive terminal website. This project is a fun, single-page portfolio built with vanilla HTML, CSS, and JavaScript, designed to feel like an old-school computer OS.
