@@ -4,13 +4,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Corrected ASCII Art Banner for "GRIMBURLY"
     const banner = `<pre class="ascii text-magenta">
-  ██████╗ ██╗██╗███╗   ███╗██████╗ ██╗   ██╗██╗   ██╗██╗   ██╗
- ██╔════╝ ██║██║████╗ ████║██╔══██╗██║   ██║██║   ██║╚██╗ ██╔╝
- ██║  ███╗██║██║██╔████╔██║██████╔╝██║   ██║██║   ██║ ╚████╔╝
- ██║   ██║██║██║██║╚██╔╝██║██╔══██╗██║   ██║██║   ██║  ╚██╔╝
- ╚██████╔╝██║██║██║ ╚═╝ ██║██████╔╝╚██████╔╝╚██████╔╝   ██║
-  ╚═════╝ ╚═╝╚═╝╚═╝     ╚═╝╚═════╝  ╚═════╝  ╚═════╝    ╚═╝
+ ██████╗ ██████╗ ██╗███╗   ███╗██████╗ ██╗   ██╗██████╗ ██╗  ██╗   ██╗
+██╔════╝ ██╔══██╗██║████╗ ████║██╔══██╗██║   ██║██╔══██╗██║  ╚██╗ ██╔╝
+██║  ███╗██████╔╝██║██╔████╔██║██████╔╝██║   ██║██████╔╝██║   ╚████╔╝
+██║   ██║██╔══██╗██║██║╚██╔╝██║██╔══██╗██║   ██║██╔══██╗██║    ╚██╔╝
+╚██████╔╝██║  ██║██║██║ ╚═╝ ██║██████╔╝╚██████╔╝██║  ██║███████╗██║
+ ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝     ╚═╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝
+
 </pre>`;
+
+    const motd = [
+        '"Stay bold, keep creating, and rock on!"',
+        '"Have the Best Day and/or Night ever!"',
+        '"The future is not set. There is no fate but what we make for ourselves."',
+        '"Do a barrel roll!"'
+    ];
 
     const commands = {
         help: `<pre class="ascii">
@@ -18,6 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
   - whois    : About Grimburly
   - social   : My social media links
   - projects : View my latest work
+  - motd     : Display the message of the day
+  - date     : Show the current date and time
   - clear    : Clear the terminal
   - reboot   : Reboot the system</pre>`,
         whois: `<pre class="ascii">
@@ -35,6 +45,8 @@ Powered by coffee and curiosity.</pre>`,
   - AV IP Calculator   : A tool for AV techs to plan on-site networks.
   - Image Cleaner (Tor): A privacy-first tool to strip image metadata.
   - More at          : <a href="https://beaubremer.com" target="_blank">beaubremer.com</a></pre>`,
+        date: new Date().toString(),
+        motd: motd[Math.floor(Math.random() * motd.length)],
         clear: '',
         reboot: ''
     };
@@ -77,7 +89,15 @@ Powered by coffee and curiosity.</pre>`,
             output.innerHTML += prompt;
 
             if (command in commands) {
+                // Update dynamic commands right before they are used
+                if (command === 'date') {
+                    commands.date = new Date().toString();
+                } else if (command === 'motd') {
+                    commands.motd = motd[Math.floor(Math.random() * motd.length)];
+                }
+
                 const response = commands[command];
+
                 if (command === 'clear') {
                     output.innerHTML = '';
                 } else if (command === 'reboot') {
