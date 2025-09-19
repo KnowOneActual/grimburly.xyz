@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const output = document.getElementById('output');
     const commandInput = document.getElementById('command-input');
+    let commandHistory = [];
+    let historyIndex = -1;
 
     // Corrected ASCII Art Banner for "GRIMBURLY"
     const banner = `<pre class="ascii text-magenta">
@@ -88,16 +90,18 @@ Powered by coffee and curiosity.</pre>`,
             const prompt = `<div class="prompt-line"><span class="prompt">grimburly@xyz:~$</span><span class="command-text">${command}</span></div>`;
             output.innerHTML += prompt;
 
+            if (command) {
+                commandHistory.unshift(command); // Add command to history
+                historyIndex = -1; // Reset history index
+            }
+
             if (command in commands) {
-                // Update dynamic commands right before they are used
                 if (command === 'date') {
                     commands.date = new Date().toString();
                 } else if (command === 'motd') {
                     commands.motd = motd[Math.floor(Math.random() * motd.length)];
                 }
-
                 const response = commands[command];
-
                 if (command === 'clear') {
                     output.innerHTML = '';
                 } else if (command === 'reboot') {
@@ -111,6 +115,19 @@ Powered by coffee and curiosity.</pre>`,
 
             this.value = '';
             document.getElementById('terminal').scrollTop = document.getElementById('terminal').scrollHeight;
+        } else if (e.key === 'ArrowUp') {
+            if (historyIndex < commandHistory.length - 1) {
+                historyIndex++;
+                this.value = commandHistory[historyIndex];
+            }
+        } else if (e.key === 'ArrowDown') {
+            if (historyIndex > 0) {
+                historyIndex--;
+                this.value = commandHistory[historyIndex];
+            } else {
+                historyIndex = -1;
+                this.value = '';
+            }
         }
     });
 
