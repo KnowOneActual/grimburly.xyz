@@ -1,0 +1,22 @@
+# /netlify.toml
+
+# This section applies security headers to all pages on your site.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+
+    X-Frame-Options = "DENY"
+
+    # Prevents the browser from trying to guess file type.
+    X-Content-Type-Options = "nosniff"
+
+    # Controls what information is sent along with requests.
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+    # A Content Security Policy (CSP) to prevent cross-site scripting (XSS) attacks.
+    # This policy allows content from your own domain and Google Fonts.
+    Content-Security-Policy = "default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;"
+
+    # Restricts which browser features can be used on the site.
+    Permissions-Policy = "accelerometer=(), camera=(), microphone=(), geolocation=(), interest-cohort=()"
