@@ -1,49 +1,75 @@
 body {
+    background-color: #0d0208;
+    color: #00ff41;
+    font-family: 'VT323', monospace;
+    font-size: 1.2rem;
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f0f0; /* A light background for the whole page */
+    padding: 1rem;
 }
 
-.panel {
-    min-height: 100vh;
+#terminal {
+    height: calc(100vh - 2rem);
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+#output {
+    flex-grow: 1;
+    white-space: pre-wrap; /* Allows text to wrap */
+    word-wrap: break-word;
+}
+
+.prompt-line {
+    display: flex;
     align-items: center;
-    position: relative;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* This creates the parallax effect */
 }
 
-.panel-content {
-    background-color: rgba(255, 255, 255, 0.85);
-    padding: 2rem 3rem;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+.prompt {
+    margin-right: 0.5rem;
 }
 
-#panel-1 {
-    /* Replace with your background image! */
-    background-image: url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=2070');
+#command-input {
+    background: none;
+    border: none;
+    color: #00ff41;
+    font-family: 'VT323', monospace;
+    font-size: 1.2rem;
+    flex-grow: 1;
+    outline: none;
 }
 
-#panel-2 {
-     /* A different background for the next panel */
-    background-color: #e2e8f0;
+/* Blinking cursor effect */
+#command-input:focus {
+    animation: blink 1s step-end infinite;
 }
 
-
-#character {
-    width: 150px;
-    height: auto;
-    margin: 0 auto 1.5rem;
-    animation: float 6s ease-in-out infinite;
-    transition: transform 0.2s ease-out; /* For the mouse follow effect */
+@keyframes blink {
+    from, to { box-shadow: 1px 0 0 #00ff41; }
+    50% { box-shadow: none; }
 }
 
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
+.text-cyan {
+    color: #00ffff;
+}
+
+.text-magenta {
+    color: #ff00ff;
+}
+
+.text-yellow {
+    color: #f3f3a5;
+}
+
+a {
+    color: #00ffff; /* Make links cyan */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.ascii {
+    white-space: pre; /* preserve the ASCII art formatting */
 }
