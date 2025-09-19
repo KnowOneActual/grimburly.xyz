@@ -1,0 +1,49 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f0f0; /* A light background for the whole page */
+}
+
+.panel {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* This creates the parallax effect */
+}
+
+.panel-content {
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 2rem 3rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+#panel-1 {
+    /* Replace with your background image! */
+    background-image: url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=2070');
+}
+
+#panel-2 {
+     /* A different background for the next panel */
+    background-color: #e2e8f0;
+}
+
+
+#character {
+    width: 150px;
+    height: auto;
+    margin: 0 auto 1.5rem;
+    animation: float 6s ease-in-out infinite;
+    transition: transform 0.2s ease-out; /* For the mouse follow effect */
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
