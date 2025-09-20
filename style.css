@@ -104,8 +104,9 @@ body::after {
 
     .ascii {
         font-size: 0.6rem;
-        /* This new line will fix the overflow issue */
         overflow-wrap: break-word;
+        /* Add this line to force wrapping */
+        white-space: pre-wrap; 
     }
 
     body {
