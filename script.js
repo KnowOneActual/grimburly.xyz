@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
         '"Do a barrel roll!"'
     ];
 
-    // --- New File System Structure ---
     const filesystem = {
         'about.txt': `<pre class="ascii">
 <span class="text-yellow">grimburly:</span> A creative tech generalist.
@@ -38,14 +37,22 @@ Powered by coffee and curiosity.</pre>`,
   - Weather Bot        : An AI-powered conversational weather bot.
   - AV IP Calculator   : A tool for AV techs to plan on-site networks.
   - Image Cleaner (Tor): A privacy-first tool to strip image metadata.
-  - More at          : <a href="https://beaubremer.com" target="_blank">beaubremer.com</a></pre>`
+  - More at          : <a href="https://beaubremer.com" target="_blank">beaubremer.com</a></pre>`,
+        'contact.txt': `<pre class="ascii">
+<span class="text-yellow">Get in touch:</span>
+  - Form: <a href="https://beaubremer.com/#contact" target="_blank">beaubremer.com/#contact</a></pre>`
     };
+
+    // --- Theme Management ---
+    const themes = ['green', 'amber', 'mono'];
 
     const commands = {
         help: `<pre class="ascii">
 <span class="text-yellow">Available commands:</span>
   - ls       : List files and directories
   - cat      : Display content of a file
+  - theme    : Change the terminal theme
+  - contact  : Show contact information
   - motd     : Display the message of the day
   - date     : Show the current date and time
   - clear    : Clear the terminal
@@ -61,6 +68,18 @@ Powered by coffee and curiosity.</pre>`,
             }
             return `cat: ${filename}: No such file or directory`;
         },
+        theme: (args) => {
+            const themeName = args[0];
+            if (!themeName) {
+                return `Usage: theme [name]\nAvailable themes: ${themes.join(', ')}`;
+            }
+            if (themes.includes(themeName)) {
+                document.body.className = themeName === 'green' ? '' : `theme-${themeName}`;
+                return `Theme set to ${themeName}.`;
+            }
+            return `Theme not found. Available themes: ${themes.join(', ')}`;
+        },
+        contact: () => filesystem['contact.txt'],
         date: () => new Date().toString(),
         motd: () => motd[Math.floor(Math.random() * motd.length)],
         clear: '',
@@ -99,36 +118,23 @@ Powered by coffee and curiosity.</pre>`,
     // Levenshtein distance function to find closest match for typos
     function levenshtein(a, b) {
         const matrix = [];
-
-        for (let i = 0; i <= b.length; i++) {
-            matrix[i] = [i];
-        }
-
-        for (let j = 0; j <= a.length; j++) {
-            matrix[0][j] = j;
-        }
-
+        for (let i = 0; i <= b.length; i++) { matrix[i] = [i]; }
+        for (let j = 0; j <= a.length; j++) { matrix[0][j] = j; }
         for (let i = 1; i <= b.length; i++) {
             for (let j = 1; j <= a.length; j++) {
                 if (b.charAt(i - 1) === a.charAt(j - 1)) {
                     matrix[i][j] = matrix[i - 1][j - 1];
                 } else {
-                    matrix[i][j] = Math.min(
-                        matrix[i - 1][j - 1] + 1, // substitution
-                        matrix[i][j - 1] + 1,     // insertion
-                        matrix[i - 1][j] + 1      // deletion
-                    );
+                    matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, matrix[i][j - 1] + 1, matrix[i - 1][j] + 1);
                 }
             }
         }
-
         return matrix[b.length][a.length];
     }
 
     function findClosestCommand(cmd) {
         let closestCmd = '';
         let minDistance = Infinity;
-
         for (const validCmd in commands) {
             const distance = levenshtein(cmd, validCmd);
             if (distance < minDistance) {
@@ -136,8 +142,6 @@ Powered by coffee and curiosity.</pre>`,
                 closestCmd = validCmd;
             }
         }
-
-        // Only suggest if the distance is reasonably close (e.g., 2 or less)
         return minDistance <= 2 ? closestCmd : null;
     }
 
@@ -151,20 +155,18 @@ Powered by coffee and curiosity.</pre>`,
             output.innerHTML += prompt;
 
             if (command) {
-                commandHistory.unshift(fullInput); // Add command to history
-                historyIndex = -1; // Reset history index
+                commandHistory.unshift(fullInput);
+                historyIndex = -1;
             }
 
             if (command in commands) {
                 let response;
                 const cmdFunction = commands[command];
-
                 if (typeof cmdFunction === 'function') {
                     response = cmdFunction(args);
                 } else {
                     response = cmdFunction;
                 }
-                
                 if (command === 'clear') {
                     output.innerHTML = '';
                 } else if (command === 'reboot') {
@@ -198,20 +200,17 @@ Powered by coffee and curiosity.</pre>`,
                 this.value = '';
             }
         } else if (e.key === 'Tab') {
-            e.preventDefault(); // Prevent default tab behavior
+            e.preventDefault();
             const inputParts = this.value.trim().toLowerCase().split(' ');
             const command = inputParts[0];
             const partialArg = inputParts[1];
 
-            // Case 1: Autocomplete the command itself
             if (inputParts.length === 1) {
                 const matchingCommands = Object.keys(commands).filter(cmd => cmd.startsWith(command));
                 if (matchingCommands.length === 1) {
                     this.value = matchingCommands[0];
                 }
-            } 
-            // Case 2: Autocomplete arguments for the 'cat' command
-            else if (command === 'cat' && partialArg) {
+            } else if (command === 'cat' && partialArg) {
                 const matchingFiles = Object.keys(filesystem).filter(file => file.startsWith(partialArg));
                 if (matchingFiles.length === 1) {
                     this.value = `cat ${matchingFiles[0]}`;

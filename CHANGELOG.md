@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0] - 2025-09-20
+
+### Added
+- **Contact Command:** Added a `contact` command and a corresponding `contact.txt` file that links to an external contact form.
+
+## [1.5.0] - 2025-09-20
+
+### Added
+- **Theme Command:** Added a `theme` command that allows users to switch between different color schemes ('green', 'amber', 'mono').
+- **CSS Refactor:** Refactored the stylesheet to use CSS variables for colors, enabling the new theme functionality.
+
 ## [1.4.1] - 2025-09-20
 
 ### Improved
