@@ -104,7 +104,7 @@ body::after {
 
     .ascii {
         /* This scales the font relative to the screen width */
-        font-size: 1.2vw; 
+        font-size: 1.8vw; 
         white-space: pre;
     }
 
