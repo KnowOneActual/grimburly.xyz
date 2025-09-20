@@ -103,9 +103,9 @@ body::after {
     }
 
     .ascii {
-        font-size: 0.7rem; /* A good size for mobile */
-        overflow-x: auto;  
-        white-space: pre;  
+        /* This scales the font relative to the screen width */
+        font-size: 1.2vw; 
+        white-space: pre;
     }
 
     body {
