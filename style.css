@@ -103,10 +103,9 @@ body::after {
     }
 
     .ascii {
-        font-size: 0.6rem;
-        overflow-wrap: break-word;
-        /* Add this line to force wrapping */
-        white-space: pre-wrap; 
+        font-size: 0.7rem; /* A good size for mobile */
+        overflow-x: auto;  
+        white-space: pre;  
     }
 
     body {
