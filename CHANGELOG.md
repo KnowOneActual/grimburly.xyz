@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2025-09-20
+
+### Added
+- **Tab Autocomplete:** Implemented a tab-to-complete feature for the command input, making it faster and easier to use.
+
 ## [1.2.0] - 2025-09-20
 
 ### Added
@@ -16,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.1.0] - 2025-09-19
 
 ### Added
-- **Favicon and Meta Tags:** Added a complete set of favicons and a description meta tag to `index.html` for better browser integration and SEO.
+- **Favicon and Meta Tags:** Added a full set of favicons and a description meta tag to `index.html` for better browser integration and SEO.
 - **Command History:** Implemented a command history feature, allowing users to cycle through previous commands using the up and down arrow keys.
 - **Security Headers:** Created a `netlify.toml` file to enforce HTTPS and add other security headers like a Content Security Policy (CSP).
 

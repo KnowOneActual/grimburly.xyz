@@ -165,6 +165,7 @@ Powered by coffee and curiosity.</pre>`,
 
             this.value = '';
             document.getElementById('terminal').scrollTop = document.getElementById('terminal').scrollHeight;
+
         } else if (e.key === 'ArrowUp') {
             if (historyIndex < commandHistory.length - 1) {
                 historyIndex++;
@@ -177,6 +178,15 @@ Powered by coffee and curiosity.</pre>`,
             } else {
                 historyIndex = -1;
                 this.value = '';
+            }
+        } else if (e.key === 'Tab') {
+            e.preventDefault(); // Prevent default tab behavior
+            const partialCommand = this.value.trim().toLowerCase();
+            if (partialCommand) {
+                const matchingCommands = Object.keys(commands).filter(cmd => cmd.startsWith(partialCommand));
+                if (matchingCommands.length === 1) {
+                    this.value = matchingCommands[0];
+                }
             }
         }
     });
