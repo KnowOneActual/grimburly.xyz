@@ -2,8 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+The format is based on on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [1.4.1] - 2025-09-20
+
+### Improved
+- **Tab Autocomplete:** The feature now also completes filenames for the `cat` command, improving usability.
+
+## [1.4.0] - 2025-09-20
+
+### Added
+- **Simulated File System:** Replaced the `whois`, `social`, and `projects` commands with a more immersive file system.
+- **`ls` Command:** Added the `ls` command to list available "files."
+- **`cat` Command:** Added the `cat` command to display the content of "files."
 
 ## [1.3.0] - 2025-09-20
 
@@ -13,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.2.0] - 2025-09-20
 
 ### Added
-- **Typo Suggestions:** Implemented a feature to suggest valid commands when a user enters a typo. The Levenshtein distance algorithm powers this to find the closest match.
+- **Typo Suggestions:** Implemented a feature to suggest valid commands when a user enters a typo. This is powered by the Levenshtein distance algorithm to find the closest match.
 
 ### Fixed
 - **Responsive Design:** Adjusted font sizes and added scaling for the ASCII art to ensure it displays correctly on mobile devices without being cut off or distorted.
