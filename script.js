@@ -82,6 +82,51 @@ Powered by coffee and curiosity.</pre>`,
         typeLine();
     }
 
+    // Levenshtein distance function to find closest match for typos
+    function levenshtein(a, b) {
+        const matrix = [];
+
+        for (let i = 0; i <= b.length; i++) {
+            matrix[i] = [i];
+        }
+
+        for (let j = 0; j <= a.length; j++) {
+            matrix[0][j] = j;
+        }
+
+        for (let i = 1; i <= b.length; i++) {
+            for (let j = 1; j <= a.length; j++) {
+                if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                    matrix[i][j] = matrix[i - 1][j - 1];
+                } else {
+                    matrix[i][j] = Math.min(
+                        matrix[i - 1][j - 1] + 1, // substitution
+                        matrix[i][j - 1] + 1,     // insertion
+                        matrix[i - 1][j] + 1      // deletion
+                    );
+                }
+            }
+        }
+
+        return matrix[b.length][a.length];
+    }
+
+    function findClosestCommand(cmd) {
+        let closestCmd = '';
+        let minDistance = Infinity;
+
+        for (const validCmd in commands) {
+            const distance = levenshtein(cmd, validCmd);
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestCmd = validCmd;
+            }
+        }
+
+        // Only suggest if the distance is reasonably close (e.g., 2 or less)
+        return minDistance <= 2 ? closestCmd : null;
+    }
+
     runBootSequence();
 
     commandInput.addEventListener('keydown', function(e) {
@@ -110,7 +155,12 @@ Powered by coffee and curiosity.</pre>`,
                     output.innerHTML += `${response}\n\n`;
                 }
             } else if (command) {
-                output.innerHTML += `Command not found: ${command}. Type 'help' for a list of commands.\n\n`;
+                const suggestion = findClosestCommand(command);
+                if (suggestion) {
+                    output.innerHTML += `Command not found: ${command}. Did you mean '<span class="text-yellow">${suggestion}</span>'?\n\n`;
+                } else {
+                    output.innerHTML += `Command not found: ${command}. Type 'help' for a list of commands.\n\n`;
+                }
             }
 
             this.value = '';
