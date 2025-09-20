@@ -1,21 +1,21 @@
 <p align="center">
 <img src="assets/logo/grimburly-color-bgr.png" alt="GrimBurly Logo png" width="200">
 
-  # grimburly.xyz
+# grimburly.xyz
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ffd58fd4-be29-42be-96f2-d0b376f9bf59/deploy-status)](https://app.netlify.com/projects/grimburly/deploys)
 
 Welcome to the repository for grimburly.xyz, a retro-futuristic, interactive terminal website. This project is a fun, single-page portfolio built with vanilla HTML, CSS, and JavaScript, designed to feel like an old-school computer OS.
 
 ## About The Project
 
-This site serves as the online home for my "social media" persona, grimburly. It's a playful space designed to contrast with my more formal professional portfolio. Instead of a traditional layout, visitors are greeted with a boot-up sequence and an interactive command line.
+This site serves as the online home for my "social media" persona, grimburly. It's a playful space designed to contrast with my more formal professional portfolio. Instead of a traditional layout, visitors are greeted with a boot-up sequence and an interactive command line where they can explore a simulated file system.
 
 ### Features
 
-  * **Interactive Terminal:** A fully client-side terminal built from scratch.
-  * **Retro Aesthetic:** Styled with a classic green-on-black theme, pixel fonts, and a subtle CRT scan line effect.
-  * **ASCII Art:** Features a custom "GRIMBURLY" ASCII art banner on boot.
-  * **Dynamic Commands:** Includes a library of commands to learn about me, find my social links, and see my projects.
+* **Interactive Terminal:** A fully client-side terminal built from scratch with command history, typo suggestions, and tab autocomplete for commands and filenames.
+* **Simulated File System:** Explore the site's content through classic commands like `ls` and `cat`.
+* **Retro Aesthetic:** Styled with a classic green-on-black theme, pixel fonts, and a subtle CRT scan line effect.
+* **ASCII Art:** Features a custom "GRIMBURLY" ASCII art banner on boot.
 
 ## Getting Started
 
@@ -23,14 +23,13 @@ Simply open the `index.html` file in any modern web browser to start the GRIMBUR
 
 ### Available Commands
 
-  * `help`: Displays a list of all available commands.
-  * `whois`: Shows a brief bio.
-  * `social`: Lists links to my social media profiles.
-  * `projects`: Displays a short list of my recent work.
-  * `motd`: Shows the "Message of the Day."
-  * `date`: Prints the current date and time.
-  * `clear`: Clears the terminal screen.
-  * `reboot`: Restarts the boot-up sequence.
+* `help`: Displays a list of all available commands.
+* `ls`: Lists all available files.
+* `cat [filename]`: Displays the content of a specific file.
+* `motd`: Shows the "Message of the Day."
+* `date`: Prints the current date and time.
+* `clear`: Clears the terminal screen.
+* `reboot`: Restarts the boot-up sequence.
 
 ## Contributing
 

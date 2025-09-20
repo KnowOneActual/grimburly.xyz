@@ -22,33 +22,47 @@ document.addEventListener('DOMContentLoaded', () => {
         '"Do a barrel roll!"'
     ];
 
-    const commands = {
-        help: `<pre class="ascii">
-<span class="text-yellow">Available commands:</span>
-  - whois    : About Grimburly
-  - social   : My social media links
-  - projects : View my latest work
-  - motd     : Display the message of the day
-  - date     : Show the current date and time
-  - clear    : Clear the terminal
-  - reboot   : Reboot the system</pre>`,
-        whois: `<pre class="ascii">
+    // --- New File System Structure ---
+    const filesystem = {
+        'about.txt': `<pre class="ascii">
 <span class="text-yellow">grimburly:</span> A creative tech generalist.
 Loves building fun, interactive things.
 Powered by coffee and curiosity.</pre>`,
-        social: `<pre class="ascii">
+        'social.links': `<pre class="ascii">
 <span class="text-yellow">Connecting...</span>
   - Mastodon: <a href="https://mastodon.social/@grimburly" target="_blank">mastodon.social/@grimburly</a>
   - Bluesky : <a href="https://bsky.app/profile/@grimburly.xyz" target="_blank">bsky.app/profile/@grimburly.xyz</a>
   - GitHub  : <a href="https://github.com/KnowOneActual" target="_blank">github.com/KnowOneActual</a></pre>`,
-        projects: `<pre class="ascii">
+        'projects.md': `<pre class="ascii">
 <span class="text-yellow">Fetching projects...</span>
   - Weather Bot        : An AI-powered conversational weather bot.
   - AV IP Calculator   : A tool for AV techs to plan on-site networks.
   - Image Cleaner (Tor): A privacy-first tool to strip image metadata.
-  - More at          : <a href="https://beaubremer.com" target="_blank">beaubremer.com</a></pre>`,
-        date: new Date().toString(),
-        motd: motd[Math.floor(Math.random() * motd.length)],
+  - More at          : <a href="https://beaubremer.com" target="_blank">beaubremer.com</a></pre>`
+    };
+
+    const commands = {
+        help: `<pre class="ascii">
+<span class="text-yellow">Available commands:</span>
+  - ls       : List files and directories
+  - cat      : Display content of a file
+  - motd     : Display the message of the day
+  - date     : Show the current date and time
+  - clear    : Clear the terminal
+  - reboot   : Reboot the system</pre>`,
+        ls: Object.keys(filesystem).join('\n'),
+        cat: (args) => {
+            const filename = args[0];
+            if (!filename) {
+                return 'Usage: cat [filename]';
+            }
+            if (filename in filesystem) {
+                return filesystem[filename];
+            }
+            return `cat: ${filename}: No such file or directory`;
+        },
+        date: () => new Date().toString(),
+        motd: () => motd[Math.floor(Math.random() * motd.length)],
         clear: '',
         reboot: ''
     };
@@ -60,7 +74,7 @@ Powered by coffee and curiosity.</pre>`,
         'Connecting to network... SECURE.',
         banner,
         'Welcome, user.',
-        'Type `help` for a list of commands.',
+        'Type `help` or `ls` for a list of commands and files.',
         ''
     ];
 
@@ -131,22 +145,26 @@ Powered by coffee and curiosity.</pre>`,
 
     commandInput.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') {
-            const command = this.value.trim().toLowerCase();
-            const prompt = `<div class="prompt-line"><span class="prompt">grimburly@xyz:~$</span><span class="command-text">${command}</span></div>`;
+            const fullInput = this.value.trim().toLowerCase();
+            const [command, ...args] = fullInput.split(' ');
+            const prompt = `<div class="prompt-line"><span class="prompt">grimburly@xyz:~$</span><span class="command-text">${fullInput}</span></div>`;
             output.innerHTML += prompt;
 
             if (command) {
-                commandHistory.unshift(command); // Add command to history
+                commandHistory.unshift(fullInput); // Add command to history
                 historyIndex = -1; // Reset history index
             }
 
             if (command in commands) {
-                if (command === 'date') {
-                    commands.date = new Date().toString();
-                } else if (command === 'motd') {
-                    commands.motd = motd[Math.floor(Math.random() * motd.length)];
+                let response;
+                const cmdFunction = commands[command];
+
+                if (typeof cmdFunction === 'function') {
+                    response = cmdFunction(args);
+                } else {
+                    response = cmdFunction;
                 }
-                const response = commands[command];
+                
                 if (command === 'clear') {
                     output.innerHTML = '';
                 } else if (command === 'reboot') {
@@ -181,11 +199,22 @@ Powered by coffee and curiosity.</pre>`,
             }
         } else if (e.key === 'Tab') {
             e.preventDefault(); // Prevent default tab behavior
-            const partialCommand = this.value.trim().toLowerCase();
-            if (partialCommand) {
-                const matchingCommands = Object.keys(commands).filter(cmd => cmd.startsWith(partialCommand));
+            const inputParts = this.value.trim().toLowerCase().split(' ');
+            const command = inputParts[0];
+            const partialArg = inputParts[1];
+
+            // Case 1: Autocomplete the command itself
+            if (inputParts.length === 1) {
+                const matchingCommands = Object.keys(commands).filter(cmd => cmd.startsWith(command));
                 if (matchingCommands.length === 1) {
                     this.value = matchingCommands[0];
+                }
+            } 
+            // Case 2: Autocomplete arguments for the 'cat' command
+            else if (command === 'cat' && partialArg) {
+                const matchingFiles = Object.keys(filesystem).filter(file => file.startsWith(partialArg));
+                if (matchingFiles.length === 1) {
+                    this.value = `cat ${matchingFiles[0]}`;
                 }
             }
         }
