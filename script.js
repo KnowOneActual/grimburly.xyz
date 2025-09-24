@@ -186,8 +186,12 @@ Powered by coffee and curiosity.</pre>`,
             }
 
             this.value = '';
-            // Use scrollIntoView on the input itself for a more reliable scroll
-            this.scrollIntoView();
+
+            // This is the key change:
+            // Use a timeout to ensure the scroll happens after the DOM has been updated.
+            setTimeout(() => {
+                this.scrollIntoView();
+            }, 0);
 
         } else if (e.key === 'ArrowUp') {
             if (historyIndex < commandHistory.length - 1) {
@@ -235,3 +239,4 @@ Powered by coffee and curiosity.</pre>`,
         }, 100);
     });
 });
+
