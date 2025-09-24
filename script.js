@@ -106,6 +106,8 @@ Powered by coffee and curiosity.</pre>`,
             setTimeout(typeLine, Math.random() * 100 + 50);
         } else {
             commandInput.focus();
+            // Scroll to the bottom after the boot sequence
+            commandInput.scrollIntoView();
         }
     }
 
@@ -184,7 +186,8 @@ Powered by coffee and curiosity.</pre>`,
             }
 
             this.value = '';
-            document.getElementById('terminal').scrollTop = document.getElementById('terminal').scrollHeight;
+            // Use scrollIntoView on the input itself for a more reliable scroll
+            this.scrollIntoView();
 
         } else if (e.key === 'ArrowUp') {
             if (historyIndex < commandHistory.length - 1) {
@@ -221,5 +224,14 @@ Powered by coffee and curiosity.</pre>`,
 
     document.getElementById('terminal').addEventListener('click', () => {
         commandInput.focus();
+    });
+
+    // --- New code for the keyboard issue ---
+    // When the input field is focused, scroll it into view.
+    commandInput.addEventListener('focus', () => {
+        // A short timeout gives the browser time to render the keyboard
+        setTimeout(() => {
+            commandInput.scrollIntoView();
+        }, 100);
     });
 });
