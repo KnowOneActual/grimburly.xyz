@@ -26,22 +26,33 @@ body.theme-mono {
 
 
 /* --- General Styles --- */
+/* New rules for robust full-height layout */
+html {
+    height: 100%;
+    overflow: hidden; /* Prevents the whole page from bouncing */
+}
+
 body {
+    height: 100%;
+    margin: 0;
+    padding: 1rem;
+    box-sizing: border-box; /* Ensures padding is included in height/width */
     background-color: var(--background-color);
     color: var(--text-color);
     font-family: 'VT323', monospace;
     font-size: 1.2rem;
-    margin: 0;
-    padding: 1rem;
     position: relative;
     transition: background-color 0.3s, color 0.3s;
+    display: flex; /* Use flexbox for a stable layout */
+    flex-direction: column;
 }
 
 #terminal {
-    height: calc(100vh - 2rem);
+    flex-grow: 1; /* Allow the terminal to grow and fill available space */
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
+    overflow-y: auto; /* Allow the terminal content to scroll */
+    min-height: 0; /* Prevents flexbox overflow issues */
 }
 
 #output {
@@ -127,19 +138,16 @@ body::after {
 
 @media (max-width: 480px) {
     body, #command-input {
-        font-size: 0.9rem;
+        font-size: 1rem; /* Increased size for better tap targets */
     }
 
     .ascii {
-        font-size: 1.6vw; 
+        font-size: 1.6vw;
         white-space: pre;
     }
 
     body {
         padding: 0.5rem;
     }
-
-    #terminal {
-        height: calc(100vh - 1rem);
-    }
 }
+

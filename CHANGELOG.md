@@ -7,6 +7,16 @@ The format is based on on Keep a Changelog,
 and this project adheres to Semantic Versioning.
 
 
+## [1.7.2] - 2025-09-24
+
+
+### Fixed
+
+
+
+* **Mobile Viewport Issues:** Refactored the CSS layout using a more robust flexbox model and improved the JavaScript scrolling logic to ensure the command prompt remains visible and usable on mobile devices, especially when the on-screen keyboard is active.
+
+
 ## [1.7.1] - 2025-09-20
 
 
@@ -45,7 +55,8 @@ and this project adheres to Semantic Versioning.
 
 
 * **Theme Command:** Added a theme command that allows users to switch between different color schemes ('green', 'amber', 'mono').
-* **CSS Refactor:** Refactored the stylesheet to use CSS variables for colors, enabling the new theme functionality.
+* CSS Refactor: Refactore \
+d the stylesheet to use CSS variables for colors, enabling the new theme functionality.
 
 
 ## [1.4.1] - 2025-09-20
@@ -87,7 +98,7 @@ and this project adheres to Semantic Versioning.
 
 
 
-* **Typo Suggestions:** Implemented a feature to suggest valid commands when a user enters a typo. The Levenshtein distance algorithm powers this to find the closest match.
+* **Typo Suggestions:** Implemented a feature to suggest valid commands when a user enters a typo. This is powered by the Levenshtein distance algorithm to find the closest match.
 
 
 ### Fixed
