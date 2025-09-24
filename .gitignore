@@ -152,3 +152,6 @@ _scratch.*
 start-work.sh
 WARP.md
 
+
+# Local Netlify folder
+.netlify

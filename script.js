@@ -30,6 +30,7 @@ Loves building fun, interactive things.
 Powered by coffee and curiosity.</pre>`,
         'social.links': `<pre class="ascii">
 <span class="text-yellow">Connecting...</span>
+  - Mastodon: <a href="https://mastodon.social/@grimburly" target="_blank">mastodon.social/@grimburly</a>
   - Bluesky : <a href="https://bsky.app/profile/@grimburly.xyz" target="_blank">bsky.app/profile/@grimburly.xyz</a>
   - GitHub  : <a href="https://github.com/KnowOneActual" target="_blank">github.com/KnowOneActual</a></pre>`,
         'projects.md': `<pre class="ascii">
@@ -38,9 +39,13 @@ Powered by coffee and curiosity.</pre>`,
   - AV IP Calculator   : A tool for AV techs to plan on-site networks.
   - Image Cleaner (Tor): A privacy-first tool to strip image metadata.
   - More at          : <a href="https://beaubremer.com" target="_blank">beaubremer.com</a></pre>`,
-        'contact.txt': `<pre class="ascii">
-<span class="text-yellow">Get in touch:</span>
-  - Form: <a href="https://beaubremer.com/#contact" target="_blank">beaubremer.com/#contact</a></pre>`,
+        'contact.txt': `<pre class="ascii text-cyan">
++---------------------------------------+
+|                                       |
+|  Email: grim [at] grimburly [dot] xyz |
+|                                       |
++---------------------------------------+
+</pre>`,
     };
 
     // --- Theme Management ---
