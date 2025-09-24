@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const terminal = document.getElementById('terminal'); // Get the terminal element
     const output = document.getElementById('output');
     const commandInput = document.getElementById('command-input');
     let commandHistory = [];
@@ -19,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         '"Stay bold, keep creating, and rock on!"',
         '"Have the Best Day and/or Night ever!"',
         '"The future is not set. There is no fate but what we make for ourselves."',
-        '"Do a barrel roll!"'
+        '"Do a barrel roll!"',
     ];
 
     const filesystem = {
@@ -40,7 +41,7 @@ Powered by coffee and curiosity.</pre>`,
   - More at          : <a href="https://beaubremer.com" target="_blank">beaubremer.com</a></pre>`,
         'contact.txt': `<pre class="ascii">
 <span class="text-yellow">Get in touch:</span>
-  - Form: <a href="https://beaubremer.com/#contact" target="_blank">beaubremer.com/#contact</a></pre>`
+  - Form: <a href="https://beaubremer.com/#contact" target="_blank">beaubremer.com/#contact</a></pre>`,
     };
 
     // --- Theme Management ---
@@ -71,10 +72,13 @@ Powered by coffee and curiosity.</pre>`,
         theme: (args) => {
             const themeName = args[0];
             if (!themeName) {
-                return `Usage: theme [name]\nAvailable themes: ${themes.join(', ')}`;
+                return `Usage: theme [name]\nAvailable themes: ${themes.join(
+                    ', '
+                )}`;
             }
             if (themes.includes(themeName)) {
-                document.body.className = themeName === 'green' ? '' : `theme-${themeName}`;
+                document.body.className =
+                    themeName === 'green' ? '' : `theme-${themeName}`;
                 return `Theme set to ${themeName}.`;
             }
             return `Theme not found. Available themes: ${themes.join(', ')}`;
@@ -83,7 +87,7 @@ Powered by coffee and curiosity.</pre>`,
         date: () => new Date().toString(),
         motd: () => motd[Math.floor(Math.random() * motd.length)],
         clear: '',
-        reboot: ''
+        reboot: '',
     };
 
     const bootSequence = [
@@ -94,7 +98,7 @@ Powered by coffee and curiosity.</pre>`,
         banner,
         'Welcome, user.',
         'Type `help` or `ls` for a list of commands and files.',
-        ''
+        '',
     ];
 
     let lineIndex = 0;
@@ -107,7 +111,7 @@ Powered by coffee and curiosity.</pre>`,
         } else {
             commandInput.focus();
             // Scroll to the bottom after the boot sequence
-            commandInput.scrollIntoView();
+            terminal.scrollTop = terminal.scrollHeight;
         }
     }
 
@@ -120,14 +124,22 @@ Powered by coffee and curiosity.</pre>`,
     // Levenshtein distance function to find closest match for typos
     function levenshtein(a, b) {
         const matrix = [];
-        for (let i = 0; i <= b.length; i++) { matrix[i] = [i]; }
-        for (let j = 0; j <= a.length; j++) { matrix[0][j] = j; }
+        for (let i = 0; i <= b.length; i++) {
+            matrix[i] = [i];
+        }
+        for (let j = 0; j <= a.length; j++) {
+            matrix[0][j] = j;
+        }
         for (let i = 1; i <= b.length; i++) {
             for (let j = 1; j <= a.length; j++) {
                 if (b.charAt(i - 1) === a.charAt(j - 1)) {
                     matrix[i][j] = matrix[i - 1][j - 1];
                 } else {
-                    matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, matrix[i][j - 1] + 1, matrix[i - 1][j] + 1);
+                    matrix[i][j] = Math.min(
+                        matrix[i - 1][j - 1] + 1,
+                        matrix[i][j - 1] + 1,
+                        matrix[i - 1][j] + 1
+                    );
                 }
             }
         }
@@ -149,7 +161,7 @@ Powered by coffee and curiosity.</pre>`,
 
     runBootSequence();
 
-    commandInput.addEventListener('keydown', function(e) {
+    commandInput.addEventListener('keydown', function (e) {
         if (e.key === 'Enter') {
             const fullInput = this.value.trim().toLowerCase();
             const [command, ...args] = fullInput.split(' ');
@@ -187,12 +199,10 @@ Powered by coffee and curiosity.</pre>`,
 
             this.value = '';
 
-            // This is the key change:
-            // Use a timeout to ensure the scroll happens after the DOM has been updated.
+            // This is the new, more forceful scrolling method
             setTimeout(() => {
-                this.scrollIntoView();
+                terminal.scrollTop = terminal.scrollHeight;
             }, 0);
-
         } else if (e.key === 'ArrowUp') {
             if (historyIndex < commandHistory.length - 1) {
                 historyIndex++;
@@ -213,12 +223,16 @@ Powered by coffee and curiosity.</pre>`,
             const partialArg = inputParts[1];
 
             if (inputParts.length === 1) {
-                const matchingCommands = Object.keys(commands).filter(cmd => cmd.startsWith(command));
+                const matchingCommands = Object.keys(commands).filter((cmd) =>
+                    cmd.startsWith(command)
+                );
                 if (matchingCommands.length === 1) {
                     this.value = matchingCommands[0];
                 }
             } else if (command === 'cat' && partialArg) {
-                const matchingFiles = Object.keys(filesystem).filter(file => file.startsWith(partialArg));
+                const matchingFiles = Object.keys(filesystem).filter((file) =>
+                    file.startsWith(partialArg)
+                );
                 if (matchingFiles.length === 1) {
                     this.value = `cat ${matchingFiles[0]}`;
                 }
@@ -230,13 +244,11 @@ Powered by coffee and curiosity.</pre>`,
         commandInput.focus();
     });
 
-    // --- New code for the keyboard issue ---
-    // When the input field is focused, scroll it into view.
+    // When the input field is focused (tapped), scroll it into view.
     commandInput.addEventListener('focus', () => {
-        // A short timeout gives the browser time to render the keyboard
         setTimeout(() => {
-            commandInput.scrollIntoView();
-        }, 100);
+            terminal.scrollTop = terminal.scrollHeight;
+        }, 100); // A short delay helps mobile browsers catch up
     });
 });
 
