@@ -7,6 +7,26 @@ The format is based on on Keep a Changelog,
 and this project adheres to Semantic Versioning.
 
 
+## [1.8.1] - 2025-09-24
+
+
+### Changed
+
+
+
+* **Contact Display:** Replaced the ASCII art for the email address with a cleaner, text-based box design for better readability and a more professional appearance.
+
+
+## [1.8.0] - 2025-09-24
+
+
+### Changed
+
+
+
+* **Contact Information:** Updated the contact command and contact.txt file to display the email address grim@grimburly.xyz as ASCII art, enhancing the site's theme and providing resistance to email scrapers.
+
+
 ## [1.7.2] - 2025-09-24
 
 
@@ -55,8 +75,7 @@ and this project adheres to Semantic Versioning.
 
 
 * **Theme Command:** Added a theme command that allows users to switch between different color schemes ('green', 'amber', 'mono').
-* CSS Refactor: Refactore \
-d the stylesheet to use CSS variables for colors, enabling the new theme functionality.
+* **CSS Refactor:** Refactored the stylesheet to use CSS variables for colors, enabling the new theme functionality.
 
 
 ## [1.4.1] - 2025-09-20
@@ -141,7 +160,7 @@ d the stylesheet to use CSS variables for colors, enabling the new theme functio
 * **Command Library:**
     * help: Lists all available commands.
     * whois: Displays a short bio for the "grimburly" persona.
-    * social: Shows clickable links to social media profiles.
+    * social: Shows clickable links to a social media profile.
     * projects: Lists key projects with links for more information.
     * date: Shows the current system date and time.
     * motd: Displays a random "Message of the Day".
@@ -158,4 +177,4 @@ d the stylesheet to use CSS variables for colors, enabling the new theme functio
 
 
 * Corrected multiple versions of the ASCII art to ensure the name "GRIMBURLY" is spelled correctly and is legible.
-* Resolved a visual bug where a text-glow animation caused the entire page to appear blurry. The final version uses a crisp, sharp text display.
+* Resolved a visual bug where a text-glow animation caused the entire page to appear blurry. The final version uses a
