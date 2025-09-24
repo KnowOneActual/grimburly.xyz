@@ -30,7 +30,6 @@ Loves building fun, interactive things.
 Powered by coffee and curiosity.</pre>`,
         'social.links': `<pre class="ascii">
 <span class="text-yellow">Connecting...</span>
-  - Mastodon: <a href="https://mastodon.social/@grimburly" target="_blank">mastodon.social/@grimburly</a>
   - Bluesky : <a href="https://bsky.app/profile/@grimburly.xyz" target="_blank">bsky.app/profile/@grimburly.xyz</a>
   - GitHub  : <a href="https://github.com/KnowOneActual" target="_blank">github.com/KnowOneActual</a></pre>`,
         'projects.md': `<pre class="ascii">
@@ -72,13 +71,10 @@ Powered by coffee and curiosity.</pre>`,
         theme: (args) => {
             const themeName = args[0];
             if (!themeName) {
-                return `Usage: theme [name]\nAvailable themes: ${themes.join(
-                    ', '
-                )}`;
+                return `Usage: theme [name]\nAvailable themes: ${themes.join(', ')}`;
             }
             if (themes.includes(themeName)) {
-                document.body.className =
-                    themeName === 'green' ? '' : `theme-${themeName}`;
+                document.body.className = themeName === 'green' ? '' : `theme-${themeName}`;
                 return `Theme set to ${themeName}.`;
             }
             return `Theme not found. Available themes: ${themes.join(', ')}`;
@@ -251,4 +247,3 @@ Powered by coffee and curiosity.</pre>`,
         }, 100); // A short delay helps mobile browsers catch up
     });
 });
-
