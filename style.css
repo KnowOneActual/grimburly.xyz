@@ -1,4 +1,4 @@
-/* --- CSS Variables and Themes --- */
+
 :root {
     /* Default Green Theme */
     --background-color: #0d0208;
@@ -150,3 +150,4 @@ body::after {
         padding: 0.5rem;
     }
 }
+
