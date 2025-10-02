@@ -1,153 +1,162 @@
-/* --- CSS Variables and Themes --- */
 :root {
-    /* Default Green Theme */
-    --background-color: #0d0208;
-    --text-color: #00ff41;
-    --highlight-color1: #ff00ff; /* Magenta */
-    --highlight-color2: #00ffff; /* Cyan */
-    --highlight-color3: #f3f3a5; /* Yellow */
+  /* Default Green Theme */
+  --background-color: #0d0208;
+  --text-color: #00ff41;
+  --highlight-color1: #ff00ff; /* Magenta */
+  --highlight-color2: #00ffff; /* Cyan */
+  --highlight-color3: #f3f3a5; /* Yellow */
 }
 
 body.theme-amber {
-    --background-color: #251800;
-    --text-color: #ffb400;
-    --highlight-color1: #ffcf40;
-    --highlight-color2: #ffdc73;
-    --highlight-color3: #ffe9a6;
+  --background-color: #251800;
+  --text-color: #ffb400;
+  --highlight-color1: #ffcf40;
+  --highlight-color2: #ffdc73;
+  --highlight-color3: #ffe9a6;
 }
 
 body.theme-mono {
-    --background-color: #000000;
-    --text-color: #ffffff;
-    --highlight-color1: #bbbbbb;
-    --highlight-color2: #dddddd;
-    --highlight-color3: #fafafa;
+  --background-color: #000000;
+  --text-color: #ffffff;
+  --highlight-color1: #bbbbbb;
+  --highlight-color2: #dddddd;
+  --highlight-color3: #fafafa;
 }
 
-
 /* --- General Styles --- */
-/* New rules for robust full-height layout */
+
 html {
-    height: 100%;
-    overflow: hidden; /* Prevents the whole page from bouncing */
+  height: 100%;
+  overflow: hidden;
 }
 
 body {
-    height: 100%;
-    margin: 0;
-    padding: 1rem;
-    box-sizing: border-box; /* Ensures padding is included in height/width */
-    background-color: var(--background-color);
-    color: var(--text-color);
-    font-family: 'VT323', monospace;
-    font-size: 1.2rem;
-    position: relative;
-    transition: background-color 0.3s, color 0.3s;
-    display: flex; /* Use flexbox for a stable layout */
-    flex-direction: column;
+  height: 100%;
+  margin: 0;
+  padding: 1rem;
+  box-sizing: border-box;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: 'VT323', monospace;
+  font-size: 1.2rem;
+  position: relative;
+  transition: background-color 0.3s, color 0.3s;
+  display: flex;
+  flex-direction: column;
 }
 
 #terminal {
-    flex-grow: 1; /* Allow the terminal to grow and fill available space */
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto; /* Allow the terminal content to scroll */
-    min-height: 0; /* Prevents flexbox overflow issues */
+  flex-grow: 1; /* Allow the terminal to grow and fill available space */
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  min-height: 0;
 }
 
 #output {
-    flex-grow: 1;
-    white-space: pre-wrap;
-    word-wrap: break-word;
+  flex-grow: 1;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 .prompt-line {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .prompt {
-    margin-right: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 #command-input {
-    background: none;
-    border: none;
-    color: var(--text-color);
-    font-family: 'VT323', monospace;
-    font-size: 1.2rem;
-    flex-grow: 1;
-    outline: none;
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-family: 'VT323', monospace;
+  font-size: 1.2rem;
+  flex-grow: 1;
+  outline: none;
 }
 
 #command-input:focus {
-    animation: blink 1s step-end infinite;
+  animation: blink 1s step-end infinite;
 }
 
 @keyframes blink {
-    from, to { box-shadow: 1px 0 0 var(--text-color); }
-    50% { box-shadow: none; }
+  from,
+  to {
+    box-shadow: 1px 0 0 var(--text-color);
+  }
+  50% {
+    box-shadow: none;
+  }
 }
 
 /* Color classes */
 .text-magenta {
-    color: var(--highlight-color1);
+  color: var(--highlight-color1);
 }
 .text-cyan {
-    color: var(--highlight-color2);
+  color: var(--highlight-color2);
 }
 .text-yellow {
-    color: var(--highlight-color3);
+  color: var(--highlight-color3);
 }
 a {
-    color: var(--highlight-color2);
-    text-decoration: none;
+  color: var(--highlight-color2);
+  text-decoration: none;
 }
 a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 .ascii {
-    white-space: pre;
+  white-space: pre;
 }
 
 /* Scan lines effect */
 body::after {
-    content: " ";
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-    z-index: 2;
-    background-size: 100% 2px, 3px 100%;
-    pointer-events: none;
+  content: ' ';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+    linear-gradient(
+      90deg,
+      rgba(255, 0, 0, 0.06),
+      rgba(0, 255, 0, 0.02),
+      rgba(0, 0, 255, 0.06)
+    );
+  z-index: 2;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
 }
 
-/* --- Responsive Design --- */
 @media (max-width: 768px) {
-    body, #command-input {
-        font-size: 1rem;
-    }
+  body,
+  #command-input {
+    font-size: 1rem;
+  }
 
-    .ascii {
-        font-size: 0.8rem;
-    }
+  .ascii {
+    font-size: 0.8rem;
+  }
 }
 
 @media (max-width: 480px) {
-    body, #command-input {
-        font-size: 1rem; /* Increased size for better tap targets */
-    }
+  body,
+  #command-input {
+    font-size: 1rem; /* Increased size for better tap targets */
+  }
 
-    .ascii {
-        font-size: 1.6vw;
-        white-space: pre;
-    }
+  .ascii {
+    font-size: 1.6vw;
+    white-space: pre;
+  }
 
-    body {
-        padding: 0.5rem;
-    }
+  body {
+    padding: 0.5rem;
+  }
 }
-
