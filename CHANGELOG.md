@@ -12,6 +12,12 @@ and this project adheres to Semantic Versioning.
 
 ### Added
 
+- Clickable ls Output: Filenames listed by the ls command are now clickable, which auto-populates the input with the corresponding cat command.
+
+- Dynamic Page Title: The browser tab title now temporarily updates to reflect the command currently being executed.
+
+- Secret File & Theme: Added a hidden journal.log file that contains a clue to unlock a secret "matrix" theme, rewarding user exploration.
+
 - New Commands: Added history to show command history and echo to repeat text, enhancing the authentic terminal feel. 
 
 - Enhanced help command: The help command can now accept an argument (e.g., help cat) to display detailed usage for a specific command. 
