@@ -11,6 +11,14 @@ and this project adheres to Semantic Versioning.
 
 
 ### Added
+
+- New Commands: Added history to show command history and echo to repeat text, enhancing the authentic terminal feel. 
+
+- Enhanced help command: The help command can now accept an argument (e.g., help cat) to display detailed usage for a specific command. 
+
+- 'sudo' Easter Egg: Included a playful sudo command that returns a classic "permission denied" message.
+
+
 - An interactive, themed 404 "File Not Found" page that maintains the terminal aesthetic and allows the user to `reboot` back to the main site.
 
 - sitemap.xml
