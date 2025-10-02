@@ -159,4 +159,7 @@ body::after {
   body {
     padding: 0.5rem;
   }
+  .cursor {
+    animation: blink 1s step-end infinite;
+  }
 }
