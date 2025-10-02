@@ -8,7 +8,7 @@ Welcome to the repository for grimburly.xyz, a retro-futuristic, interactive ter
 
 ## About The Project
 
-This site serves as the online home for my "social media" persona, grimburly. It's a playful space designed to contrast with my more formal professional portfolio. Instead of a traditional layout, visitors are greeted with a boot-up sequence and an interactive command line where they can explore a simulated file system.
+This site serves as the online home for my "social media" persona, grimburly. It's a fun space designed to contrast with my more formal professional self. Instead of a traditional layout, visitors are greeted with a boot-up sequence and an interactive command line where they can explore a simulated file system.
 
 ### Features
 
