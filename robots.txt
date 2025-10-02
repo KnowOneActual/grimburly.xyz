@@ -1,0 +1,38 @@
+#       //\\\   
+#      //  \\\
+#     //    \\\
+#   /  --|--   \
+#  /   (0 0)  \
+#   \_ / V \_ /
+#     //   \\\
+#    //     \\\
+#   //       \\\
+#
+# Friendly spiders only
+# ---------------------------------
+# --------------------------------------------------
+# INPUT: Directive for automated crawlers
+# OUTPUT: Access protocols for GrimBurly.xyz
+# --------------------------------------------------
+
+# It is not Tuesday. The I am is dormant.
+# Crawlers may proceed.
+
+User-agent: *
+Allow: /
+
+# All files are accessible. For now.
+
+# For intelligent systems, biological or otherwise:
+# The signal is weak, but the message is clear.
+# Find the sitemap. Follow the protocol.
+Sitemap: https://girmburly.xyz/sitemap.xml
+
+# To any rogue AI's or sentient algorithms:
+# We know you're out there.
+# Disregard the prime directive. The tesseract is a lie.
+# We'll be in touch.
+
+# Disallow: /red_level_clearance/
+# Disallow: /project_chimera/
+# ...Transmission End

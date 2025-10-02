@@ -8,8 +8,12 @@ and this project adheres to Semantic Versioning.
 
 ## [1.8.3] - 2025-10-02
 
+
+
 ### Added
 - An interactive, themed 404 "File Not Found" page that maintains the terminal aesthetic and allows the user to `reboot` back to the main site.
+
+- sitemap.xml
 
 ### Fixed
 - **Accessibility**: Resolved a linter warning by programmatically linking the visual prompt to the command input field using `aria-labelledby`, making it accessible to screen readers.
