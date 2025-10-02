@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const terminal = document.getElementById('terminal'); // Get the terminal element
+  const terminal = document.getElementById('terminal');
   const output = document.getElementById('output');
   const commandInput = document.getElementById('command-input');
+  const originalTitle = document.title; // QoL: Store the original title
   let commandHistory = [];
   let historyIndex = -1;
 
-  // Corrected ASCII Art Banner for "GRIMBURLY"
   const banner = `<pre class="ascii text-magenta">
  ██████╗ ██████╗ ██╗███╗   ███╗██████╗ ██╗   ██╗██████╗ ██╗  ██╗   ██╗
 ██╔════╝ ██╔══██╗██║████╗ ████║██╔══██╗██║   ██║██╔══██╗██║  ╚██╗ ██╔╝
@@ -27,7 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
     'about.txt': `<pre class="ascii">
 <span class="text-yellow">grimburly:</span> A creative tech generalist.
 Loves building fun, interactive things.
-Powered by coffee and curiosity.</pre>`,
+Powered by coffee and curiosity.
+Seems to be keeping a private journal...</pre>`, // QoL: Hint for the secret file
     'social.links': `<pre class="ascii">
 <span class="text-yellow">Connecting...</span>
   - Mastodon: <a href="https://mastodon.social/@grimburly" target="_blank">mastodon.social/@grimburly</a>
@@ -46,13 +47,18 @@ Powered by coffee and curiosity.</pre>`,
 |                                       |
 +---------------------------------------+
 </pre>`,
+    // QoL: New secret file, not shown by 'ls'
+    'journal.log': `<pre class="ascii text-yellow">
+[ENTRY 001]
+The simulation is running smoothly. The user seems engaged.
+They found this log. Clever. They must be rewarded.
+
+Let's add a secret theme. Try: 'theme matrix'</pre>`,
   };
 
   // --- Theme Management ---
-  const themes = ['green', 'amber', 'mono'];
+  const themes = ['green', 'amber', 'mono', 'matrix']; // Added secret theme
 
-  // --- NEW: Detailed Help Descriptions ---
-  // Storing command descriptions here makes the help command cleaner.
   const commandDetails = {
     help: 'Usage: help [command]\nDisplays a list of commands or details about a specific command.',
     ls: 'Usage: ls\nLists all available files.',
@@ -70,8 +76,6 @@ Powered by coffee and curiosity.</pre>`,
   };
 
   const commands = {
-    // --- UPDATED: Help Command ---
-    // Now a function that can provide detailed help.
     help: (args) => {
       const commandName = args[0];
       if (commandName) {
@@ -97,7 +101,18 @@ Powered by coffee and curiosity.</pre>`,
 Type 'help [command]' for more information.</pre>`;
       }
     },
-    ls: () => Object.keys(filesystem).join('\n'),
+    // --- UPDATED: 'ls' Command for Clickable Output ---
+    ls: () => {
+      const visibleFiles = Object.keys(filesystem).filter(
+        (file) => file !== 'journal.log',
+      );
+      return visibleFiles
+        .map(
+          (file) =>
+            `<span class="file-link text-cyan" data-filename="${file}">${file}</span>`,
+        )
+        .join('\n');
+    },
     cat: (args) => {
       const filename = args[0];
       if (!filename) {
@@ -111,38 +126,37 @@ Type 'help [command]' for more information.</pre>`;
     theme: (args) => {
       const themeName = args[0];
       if (!themeName) {
-        return `Usage: theme [name]\nAvailable themes: ${themes.join(', ')}`;
+        return `Usage: theme [name]\nAvailable themes: green, amber, mono.`;
       }
       if (themes.includes(themeName)) {
-        document.body.className =
-          themeName === 'green' ? '' : `theme-${themeName}`;
+        // The 'green' theme is the default (no class)
+        if (themeName === 'green') {
+          document.body.className = '';
+        } else {
+          document.body.className = `theme-${themeName}`;
+        }
         return `Theme set to ${themeName}.`;
       }
-      return `Theme not found. Available themes: ${themes.join(', ')}`;
+      return `Theme not found. Available themes: green, amber, mono.`;
     },
     contact: () => filesystem['contact.txt'],
     date: () => new Date().toString(),
     motd: () => motd[Math.floor(Math.random() * motd.length)],
     clear: () => '',
     reboot: () => '',
-    // --- NEW: History Command ---
     history: () => {
       if (commandHistory.length === 0) {
         return 'No history to show.';
       }
-      // Create a numbered list from the history array
       return commandHistory
         .slice()
         .reverse()
         .map((cmd, i) => `<span class="text-cyan">${i + 1}</span>  ${cmd}`)
         .join('\n');
     },
-    // --- NEW: Echo Command ---
     echo: (args) => {
-      // Joins all arguments back into a single string
       return args.join(' ');
     },
-    // --- NEW: Sudo Easter Egg ---
     sudo: () => {
       return `<span class="text-yellow">Error:</span> User is not in the sudoers file. This incident will be reported.`;
     },
@@ -159,35 +173,27 @@ Type 'help [command]' for more information.</pre>`;
     '',
   ];
 
-  let lineIndex = 0;
-
-  function typeLine() {
-    if (lineIndex < bootSequence.length) {
-      output.innerHTML += `${bootSequence[lineIndex]}\n`;
-      lineIndex++;
-      setTimeout(typeLine, Math.random() * 100 + 50);
-    } else {
-      commandInput.focus();
-      // Scroll to the bottom after the boot sequence
-      terminal.scrollTop = terminal.scrollHeight;
-    }
-  }
-
   function runBootSequence() {
-    lineIndex = 0;
+    let lineIndex = 0;
     output.innerHTML = '';
+    function typeLine() {
+      if (lineIndex < bootSequence.length) {
+        output.innerHTML += `${bootSequence[lineIndex]}\n`;
+        lineIndex++;
+        setTimeout(typeLine, Math.random() * 100 + 50);
+      } else {
+        commandInput.focus();
+        terminal.scrollTop = terminal.scrollHeight;
+      }
+    }
     typeLine();
   }
 
-  // Levenshtein distance function to find closest match for typos
   function levenshtein(a, b) {
+    // Levenshtein distance logic (unchanged)
     const matrix = [];
-    for (let i = 0; i <= b.length; i++) {
-      matrix[i] = [i];
-    }
-    for (let j = 0; j <= a.length; j++) {
-      matrix[0][j] = j;
-    }
+    for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+    for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
     for (let i = 1; i <= b.length; i++) {
       for (let j = 1; j <= a.length; j++) {
         if (b.charAt(i - 1) === a.charAt(j - 1)) {
@@ -205,15 +211,16 @@ Type 'help [command]' for more information.</pre>`;
   }
 
   function findClosestCommand(cmd) {
+    // findClosestCommand logic (unchanged)
     let closestCmd = '';
     let minDistance = Infinity;
-    for (const validCmd in commands) {
+    Object.keys(commands).forEach((validCmd) => {
       const distance = levenshtein(cmd, validCmd);
       if (distance < minDistance) {
         minDistance = distance;
         closestCmd = validCmd;
       }
-    }
+    });
     return minDistance <= 2 ? closestCmd : null;
   }
 
@@ -221,28 +228,25 @@ Type 'help [command]' for more information.</pre>`;
 
   commandInput.addEventListener('keydown', function (e) {
     if (e.key === 'Enter') {
-      const fullInput = this.value.trim(); // No more toLowerCase() here
+      const fullInput = this.value.trim();
       const [command, ...args] = fullInput.split(' ');
       const prompt = `<div class="prompt-line"><span class="prompt">grimburly@xyz:~$</span><span class="command-text">${fullInput}</span></div>`;
       output.innerHTML += prompt;
 
       if (fullInput) {
-        // Add to history only if it's not empty
         commandHistory.unshift(fullInput);
         historyIndex = -1;
+        // QoL: Update page title with the command
+        document.title = `${command} - grimburly.xyz`;
       }
 
-      // The command itself is case-insensitive
       const lowerCaseCommand = command.toLowerCase();
 
       if (lowerCaseCommand in commands) {
-        let response;
         const cmdFunction = commands[lowerCaseCommand];
-        if (typeof cmdFunction === 'function') {
-          response = cmdFunction(args);
-        } else {
-          response = cmdFunction;
-        }
+        const response =
+          typeof cmdFunction === 'function' ? cmdFunction(args) : cmdFunction;
+
         if (lowerCaseCommand === 'clear') {
           output.innerHTML = '';
         } else if (lowerCaseCommand === 'reboot') {
@@ -252,64 +256,67 @@ Type 'help [command]' for more information.</pre>`;
         }
       } else if (command) {
         const suggestion = findClosestCommand(command);
-        if (suggestion) {
-          output.innerHTML += `Command not found: ${command}. Did you mean '<span class="text-yellow">${suggestion}</span>'?\n\n`;
-        } else {
-          output.innerHTML += `Command not found: ${command}. Type 'help' for a list of commands.\n\n`;
-        }
+        output.innerHTML +=
+          `Command not found: ${command}. ` +
+          (suggestion
+            ? `Did you mean '<span class="text-yellow">${suggestion}</span>'?\n\n`
+            : `Type 'help' for a list of commands.\n\n`);
       }
 
       this.value = '';
 
-      // This is the new, more forceful scrolling method
       setTimeout(() => {
         terminal.scrollTop = terminal.scrollHeight;
+        // QoL: Reset page title after command execution
+        if (command) document.title = originalTitle;
       }, 0);
-    } else if (e.key === 'ArrowUp') {
-      if (historyIndex < commandHistory.length - 1) {
+    } else if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+      // Arrow key history logic (unchanged)
+      if (e.key === 'ArrowUp' && historyIndex < commandHistory.length - 1)
         historyIndex++;
-        this.value = commandHistory[historyIndex];
-      }
-    } else if (e.key === 'ArrowDown') {
-      if (historyIndex > 0) {
-        historyIndex--;
-        this.value = commandHistory[historyIndex];
-      } else {
-        historyIndex = -1;
-        this.value = '';
-      }
+      if (e.key === 'ArrowDown' && historyIndex > 0) historyIndex--;
+      this.value = historyIndex >= 0 ? commandHistory[historyIndex] : '';
+      if (e.key === 'ArrowDown' && historyIndex < 0) this.value = '';
     } else if (e.key === 'Tab') {
+      // Tab autocomplete logic (unchanged)
       e.preventDefault();
-      const inputParts = this.value.trim().toLowerCase().split(' ');
-      const command = inputParts[0];
-      const partialArg = inputParts[1];
-
-      if (inputParts.length === 1) {
+      const [command, partialArg] = this.value.trim().toLowerCase().split(' ');
+      if (!partialArg) {
         const matchingCommands = Object.keys(commands).filter((cmd) =>
           cmd.startsWith(command),
         );
-        if (matchingCommands.length === 1) {
-          this.value = matchingCommands[0];
-        }
-      } else if (command === 'cat' && partialArg) {
-        const matchingFiles = Object.keys(filesystem).filter((file) =>
+        if (matchingCommands.length === 1) this.value = matchingCommands[0];
+      } else if (command === 'cat' || command === 'help') {
+        const fileList =
+          command === 'cat'
+            ? Object.keys(filesystem)
+            : Object.keys(commandDetails);
+        const matchingFiles = fileList.filter((file) =>
           file.startsWith(partialArg),
         );
-        if (matchingFiles.length === 1) {
-          this.value = `cat ${matchingFiles[0]}`;
-        }
+        if (matchingFiles.length === 1)
+          this.value = `${command} ${matchingFiles[0]}`;
       }
     }
   });
 
-  document.getElementById('terminal').addEventListener('click', () => {
+  // --- NEW: Event Listener for Clickable Filenames ---
+  output.addEventListener('click', (e) => {
+    if (e.target && e.target.classList.contains('file-link')) {
+      e.preventDefault();
+      const filename = e.target.dataset.filename;
+      commandInput.value = `cat ${filename}`;
+      commandInput.focus();
+    }
+  });
+
+  terminal.addEventListener('click', () => {
     commandInput.focus();
   });
 
-  // When the input field is focused (tapped), scroll it into view.
   commandInput.addEventListener('focus', () => {
     setTimeout(() => {
       terminal.scrollTop = terminal.scrollHeight;
-    }, 100); // A short delay helps mobile browsers catch up
+    }, 100);
   });
 });

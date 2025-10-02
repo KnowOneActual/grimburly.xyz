@@ -23,6 +23,16 @@ body.theme-mono {
   --highlight-color3: #fafafa;
 }
 
+/* QoL: New secret theme found in journal.log */
+body.theme-matrix {
+  --background-color: #000000;
+  --text-color: #00ff00;
+  --highlight-color1: #00cc00;
+  --highlight-color2: #009900;
+  --highlight-color3: #33ff33;
+  font-family: 'Courier New', Courier, monospace;
+}
+
 /* --- General Styles --- */
 
 html {
@@ -46,7 +56,7 @@ body {
 }
 
 #terminal {
-  flex-grow: 1; /* Allow the terminal to grow and fill available space */
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -72,7 +82,7 @@ body {
   background: none;
   border: none;
   color: var(--text-color);
-  font-family: 'VT323', monospace;
+  font-family: inherit; /* Inherits from body for theme changes */
   font-size: 1.2rem;
   flex-grow: 1;
   outline: none;
@@ -113,6 +123,14 @@ a:hover {
   white-space: pre;
 }
 
+/* QoL: New style for clickable filenames in 'ls' output */
+.file-link {
+  cursor: pointer;
+}
+.file-link:hover {
+  text-decoration: underline;
+}
+
 /* Scan lines effect */
 body::after {
   content: ' ';
@@ -139,7 +157,6 @@ body::after {
   #command-input {
     font-size: 1rem;
   }
-
   .ascii {
     font-size: 0.8rem;
   }
@@ -148,18 +165,13 @@ body::after {
 @media (max-width: 480px) {
   body,
   #command-input {
-    font-size: 1rem; /* Increased size for better tap targets */
+    font-size: 1rem;
   }
-
   .ascii {
     font-size: 1.6vw;
     white-space: pre;
   }
-
   body {
     padding: 0.5rem;
-  }
-  .cursor {
-    animation: blink 1s step-end infinite;
   }
 }
