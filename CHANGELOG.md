@@ -15,12 +15,6 @@ and this project adheres to Semantic Versioning.
 - **Accessibility**: Resolved a linter warning by programmatically linking the visual prompt to the command input field using `aria-labelledby`, making it accessible to screen readers.
 
 
-## [1.8.2] - 2025-10-02
-
-### Fixed
-- Improved accessibility by programmatically linking the visual prompt to the command input field using `aria-labelledby`. This resolves a "Form elements must have labels" warning for screen readers.
-
-
 ## [1.8.1] - 2025-09-24
 
 
