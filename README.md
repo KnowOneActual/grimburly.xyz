@@ -8,11 +8,8 @@ Welcome to the repository for grimburly.xyz, a retro-futuristic, interactive ter
 
 ## About The Project
 
-<<<<<<< HEAD
+
 This site serves as the online home for my "social media" persona, grimburly. It's a fun space designed to contrast with my more formal professional self. Instead of a traditional layout, visitors are greeted with a boot-up sequence and an interactive command line where they can explore a simulated file system.
-=======
-This site serves as the online home for my "social media" persona, grimburly. It's a playful space designed to contrast with my more formal professional self. Instead of a traditional layout, visitors are greeted with a boot-up sequence and an interactive command line where they can explore a simulated file system.
->>>>>>> e5e6cc9 (updated README.md)
 
 ### Features
 
@@ -56,8 +53,6 @@ If you'd like to contribute directly, you can also open a pull request.
 
 ## License
 
-<<<<<<< HEAD
-Distributed under the MIT License. See `LICENSE` for more information.
-=======
-Distributed under the MIT License. See LICENSE for more information.
->>>>>>> e5e6cc9 (updated README.md)
+
+Distributed under the MIT License.
+
