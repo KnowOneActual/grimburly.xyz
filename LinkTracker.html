@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'">
     <title>Link Tracker - Resource Checklist</title>
     <style>
         * {
@@ -536,19 +537,7 @@
             loadData();
             renderCategories();
             attachEventListeners();
-            attachButtonListeners();
             updateStats();
-        }
-
-        function attachButtonListeners() {
-            document.getElementById('expand-all-btn').addEventListener('click', expandAllCategories);
-            document.getElementById('collapse-all-btn').addEventListener('click', collapseAllCategories);
-            document.getElementById('export-btn').addEventListener('click', exportData);
-            document.getElementById('clear-all-btn').addEventListener('click', clearAllData);
-            document.getElementById('view-progress-link').addEventListener('click', (e) => {
-                e.preventDefault();
-                scrollToStats();
-            });
         }
 
         function saveData() {
@@ -639,6 +628,16 @@
         }
 
         function attachEventListeners() {
+            // Button event listeners
+            document.getElementById('expand-all-btn')?.addEventListener('click', expandAllCategories);
+            document.getElementById('collapse-all-btn')?.addEventListener('click', collapseAllCategories);
+            document.getElementById('export-btn')?.addEventListener('click', exportData);
+            document.getElementById('clear-all-btn')?.addEventListener('click', clearAllData);
+            document.getElementById('view-progress-link')?.addEventListener('click', (e) => {
+                e.preventDefault();
+                scrollToStats();
+            });
+
             document.getElementById('search-input').addEventListener('input', () => {
                 renderCategories();
                 attachEventListeners();
