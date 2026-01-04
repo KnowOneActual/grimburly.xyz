@@ -343,7 +343,7 @@
         <p style="color: var(--color-text-secondary); margin-top: 5px;">Track which resources you've reviewed and used</p>
         <div class="header-meta">
             <span>105 total links across 6 categories</span>
-            <a href="#" onclick="scrollToStats(); return false;">View Progress →</a>
+            <a href="#" id="view-progress-link">View Progress →</a>
         </div>
         <div class="header-stats">
             <div class="stat">
@@ -366,17 +366,17 @@
             <input type="text" id="search-input" placeholder="🔍 Search links by name or description...">
             <select id="category-filter">
                 <option value="">All Categories</option>
-                <option value="AI &amp; Content Creation">AI &amp; Content Creation</option>
-                <option value="Audio, Music &amp; Production">Audio, Music &amp; Production</option>
-                <option value="Software Development &amp; Technical Tools">Software Development &amp; Technical Tools</option>
-                <option value="Cybersecurity &amp; Privacy">Cybersecurity &amp; Privacy</option>
-                <option value="Education, Career &amp; Productivity">Education, Career &amp; Productivity</option>
-                <option value="Utilities &amp; Miscellaneous">Utilities &amp; Miscellaneous</option>
+                <option value="AI & Content Creation">AI & Content Creation</option>
+                <option value="Audio, Music & Production">Audio, Music & Production</option>
+                <option value="Software Development & Technical Tools">Software Development & Technical Tools</option>
+                <option value="Cybersecurity & Privacy">Cybersecurity & Privacy</option>
+                <option value="Education, Career & Productivity">Education, Career & Productivity</option>
+                <option value="Utilities & Miscellaneous">Utilities & Miscellaneous</option>
             </select>
-            <button class="btn-primary" onclick="expandAllCategories()">📂 Expand All</button>
-            <button class="btn-secondary" onclick="collapseAllCategories()">📁 Collapse All</button>
-            <button class="btn-primary" onclick="exportData()">📥 Export as CSV</button>
-            <button class="btn-secondary" onclick="clearAllData()">🗑️ Clear All</button>
+            <button class="btn-primary" id="expand-all-btn">📂 Expand All</button>
+            <button class="btn-secondary" id="collapse-all-btn">📁 Collapse All</button>
+            <button class="btn-primary" id="export-btn">📥 Export as CSV</button>
+            <button class="btn-secondary" id="clear-all-btn">🗑️ Clear All</button>
         </div>
 
         <div class="categories" id="categories-container"></div>
@@ -388,7 +388,7 @@
 
     <script>
         const linksData = {
-            "AI &amp; Content Creation": [
+            "AI & Content Creation": [
                 { name: "GenSpark", url: "https://www.genspark.im/try", desc: "AI super agent search platform creating custom summary pages." },
                 { name: "Omakub", url: "https://omakub.org/", desc: "Ubuntu dev environment setup script by DHH." },
                 { name: "Magic Loops", url: "https://magicloops.dev/pricing", desc: "Programmable AI automation platform for custom workflows." },
@@ -422,7 +422,7 @@
                 { name: "Perplexity AI", url: "https://www.perplexity.ai/", desc: "AI search engine with reasoning capabilities." },
                 { name: "Hugging Face", url: "https://huggingface.co/", desc: "Hub for ML models, datasets, and applications." }
             ],
-            "Audio, Music &amp; Production": [
+            "Audio, Music & Production": [
                 { name: "SyndtSphere", url: "https://klevgrand.com/products/syndtsphere", desc: "Spherical synthesizer plugin with preset surfing." },
                 { name: "Tracktion Zyklop", url: "https://www.tracktion.com/products/zyklop", desc: "Free synthesizer with Re-synthesis engine." },
                 { name: "VocalFIXit Suite", url: "https://www.psychocircuitry.com/vfis.html", desc: "Audio plugins fixing vocal recording issues." },
@@ -442,7 +442,7 @@
                 { name: "Soundtrap", url: "https://www.soundtrap.com/", desc: "Browser-based music production suite." },
                 { name: "Audacity", url: "https://www.audacityteam.org/", desc: "Free, open-source audio editing software." }
             ],
-            "Software Development &amp; Technical Tools": [
+            "Software Development & Technical Tools": [
                 { name: "VERT.sh", url: "https://vert.sh/", desc: "Browser-based local file converter for media." },
                 { name: "Jam Dev Utilities", url: "https://jam.dev/utilities", desc: "Collection of developer utilities and tools." },
                 { name: "Cobalt Tools", url: "https://cobalt.tools/settings/advanced", desc: "Media downloader from various platforms." },
@@ -468,7 +468,7 @@
                 { name: "FreeCodeCamp", url: "https://www.freecodecamp.org/", desc: "Free coding tutorials and certifications." },
                 { name: "Web Dev Simplified", url: "https://www.youtube.com/@WebDevSimplified", desc: "YouTube channel for web development learning." }
             ],
-            "Cybersecurity &amp; Privacy": [
+            "Cybersecurity & Privacy": [
                 { name: "IP Leak Test", url: "https://ipleak.net/", desc: "Reveals IP and browser information leaks." },
                 { name: "Astrill VPN Test", url: "https://www.astrill.com/vpn-leak-test", desc: "Checks if VPN is leaking real IP/DNS." },
                 { name: "Hacksplaining", url: "https://www.hacksplaining.com/lessons", desc: "Interactive security lessons for developers." },
@@ -485,7 +485,7 @@
                 { name: "Mullvad VPN", url: "https://mullvad.net/", desc: "Privacy-focused VPN without account requirement." },
                 { name: "Tor Browser", url: "https://www.torproject.org/", desc: "Browser for anonymous internet browsing." }
             ],
-            "Education, Career &amp; Productivity": [
+            "Education, Career & Productivity": [
                 { name: "QuizMate", url: "https://www.quizmate.io/", desc: "AI study partner creating quizzes from notes." },
                 { name: "Study.me", url: "https://study.me/", desc: "AI study planner for organizing learning." },
                 { name: "Tango", url: "https://www.tango.ai/", desc: "Documentation tool creating step-by-step guides." },
@@ -502,7 +502,7 @@
                 { name: "AngelList", url: "https://www.angel.co/", desc: "Startup jobs and equity opportunities." },
                 { name: "Product Hunt", url: "https://www.producthunt.com/", desc: "Discover and showcase new products." }
             ],
-            "Utilities &amp; Miscellaneous": [
+            "Utilities & Miscellaneous": [
                 { name: "TV.Garden", url: "https://tv.garden/", desc: "Interactive globe for live TV broadcasts worldwide." },
                 { name: "LocalSend", url: "https://localsend.org/download", desc: "Secure file sharing between local devices." },
                 { name: "Skyscanner", url: "https://www.skyscanner.com/", desc: "Travel search for flights and hotels." },
@@ -536,7 +536,19 @@
             loadData();
             renderCategories();
             attachEventListeners();
+            attachButtonListeners();
             updateStats();
+        }
+
+        function attachButtonListeners() {
+            document.getElementById('expand-all-btn').addEventListener('click', expandAllCategories);
+            document.getElementById('collapse-all-btn').addEventListener('click', collapseAllCategories);
+            document.getElementById('export-btn').addEventListener('click', exportData);
+            document.getElementById('clear-all-btn').addEventListener('click', clearAllData);
+            document.getElementById('view-progress-link').addEventListener('click', (e) => {
+                e.preventDefault();
+                scrollToStats();
+            });
         }
 
         function saveData() {
