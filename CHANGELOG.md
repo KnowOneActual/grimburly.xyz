@@ -6,8 +6,23 @@ The format is based on on Keep a Changelog,
 
 and this project adheres to Semantic Versioning.
 
-## [1.8.3] - 2025-10-02
+A solid changelog entry for this round of work could look like this:
 
+## Changelog
+
+### [1.8.4] – 2026-01-04
+
+#### Fixed
+- Resolved GitHub Pages Content Security Policy blocking the app JavaScript by moving inline `<script>` into an external `linktracker.js` file.
+- Removed inline event handlers (such as `onclick`) and replaced them with `addEventListener`-based wiring for all controls, including View Progress, Expand/Collapse, Export, and Clear.
+- Eliminated inline styles on header text in favor of a reusable `.header-subtitle` CSS class to comply with stricter CSP rules.
+
+#### Changed
+- Slightly adjusted HTML structure to add stable IDs for buttons and links used by the external script (for example, `view-progress-link`, `expand-all-btn`, `collapse-all-btn`, `export-btn`, `clear-btn`).
+
+
+
+## [1.8.3] - 2025-10-02
 
 
 ### Added
